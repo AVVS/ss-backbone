@@ -25,7 +25,7 @@ window.syncedModel = Backbone.Model.extend
       req.cid = model.cid
     ss.backbone(req)
 
-  initialize: (attrs) ->
+  initialize: (attrs={}) ->
     modelname = @.constructor.modelname
     if !modelname
       throw "Cannot sync. You must set the name of the modelname on the Model class"
@@ -71,6 +71,9 @@ window.syncedCollection = Backbone.Collection.extend
           @add(msg.model)
         if msg.method == "read"
           @add(msg.models)
+          
+        @trigger "change"  
+          
 # window.Book = syncedModel.extend {},
 #   modelname: "Book"
 
